@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useDebounce } from '../../../../hooks/useDebounce';
 import { IAnimeItem, ISearchState } from '../../../../types/interfaces';
+import { useSearchParams } from 'react-router-dom';
 
 const ANIME_API = 'https://api.jikan.moe/v4/anime';
 
@@ -22,6 +23,9 @@ export const SearchInput = ({
   setSearchState,
 }: ISearchInputProps) => {
   const [searchValue, setSearchValue] = useState('');
+
+  const [queryParams, setQueryParams] = useSearchParams();
+
   const debouncedSearchValue = useDebounce(searchValue, 500);
   const { data, isLoading, error } = useQuery(
     ['anime', debouncedSearchValue],
@@ -29,6 +33,7 @@ export const SearchInput = ({
     { enabled: !!debouncedSearchValue }
   );
 
+  // useEffect to send data to the parent component
   useEffect(() => {
     setSearchResults(data || []);
     setSearchState({
@@ -37,13 +42,23 @@ export const SearchInput = ({
     });
   }, [data, error, isLoading]);
 
+  // useEffect to check queryParams for existing searchValue on component first render
+  useEffect(() => {
+    if (!!queryParams.get('search')) {
+      setSearchValue(queryParams.get('search') || '');
+    }
+  }, []);
+
   return (
     <input
       className="search-input"
       type="text"
       placeholder="Search..."
       value={searchValue}
-      onChange={(event) => setSearchValue(event.target.value)}
+      onChange={(event) => {
+        setSearchValue(event.target.value);
+        setQueryParams({search: event.target.value});
+      }}
     />
   );
 };
