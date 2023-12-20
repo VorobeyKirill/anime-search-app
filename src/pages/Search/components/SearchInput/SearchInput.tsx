@@ -49,7 +49,7 @@ export const SearchInput = ({
     if (queryParams.get('search')) {
       setSearchValue(queryParams.get('search') || '');
     }
-  }, []);
+  }, [queryParams]);
 
   return (
     <input
@@ -59,7 +59,7 @@ export const SearchInput = ({
       value={searchValue}
       onChange={(event) => {
         setSearchValue(event.target.value);
-        setQueryParams({search: event.target.value});
+        setQueryParams({ search: event.target.value });
       }}
     />
   );

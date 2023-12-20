@@ -40,9 +40,13 @@ export const DetailsPage = () => {
     <>
       {!!data && (
         <>
-          <img src={data?.images.jpg.image_url} />
-          <h2>{data.title}</h2>
-          <p>{data.synopsis}</p>
+          <h2 className="details__title">{data.title}</h2>
+          <img
+            src={data?.images.jpg.image_url}
+            alt={data.title + ' cover image'}
+            className="details__image"
+          />
+          <p className="details__description">{data.synopsis}</p>
         </>
       )}
     </>

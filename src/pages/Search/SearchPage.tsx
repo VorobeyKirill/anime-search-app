@@ -18,7 +18,11 @@ export const SearchPage = () => {
         setSearchResults={setSearchResults}
         setSearchState={setSearchState}
       />
-      {searchState.loading && <span className="search-page__loading-indicator">Loading results...</span>}
+      {searchState.loading && (
+        <span className="search-page__loading-indicator">
+          Loading results...
+        </span>
+      )}
       {searchState.error && (
         <div className="search-page__error">
           <span>

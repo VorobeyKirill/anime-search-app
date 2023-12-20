@@ -1,0 +1,69 @@
+import '@testing-library/jest-dom';
+import { IAnimeItem } from '../../../../types/interfaces';
+import { SearchInput } from './SearchInput';
+import { render } from '@testing-library/react';
+
+const mockedQueryParams = new Map();
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useSearchParams: () => [mockedQueryParams, () => jest.fn()],
+}));
+
+const animeItemsMock: IAnimeItem[] = [
+  {
+    synopsis: 'synopsis',
+    title: 'title',
+    mal_id: 1,
+    images: { jpg: { image_url: 'url' } },
+  },
+];
+
+jest.mock('react-query', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useQuery: () => ({
+    data: animeItemsMock,
+    isLoading: false,
+    error: null,
+  }),
+}));
+
+const setSearchResultsMock = () => jest.fn();
+const setSearchStateMock = () => jest.fn();
+
+describe('SearchInput', () => {
+  it('should match snapshot', () => {
+    expect(
+      render(
+        <SearchInput
+          setSearchResults={setSearchResultsMock}
+          setSearchState={setSearchStateMock}
+        />
+      )
+    ).toMatchSnapshot();
+  });
+
+  it('should contain input element by default', () => {
+    const { container } = render(
+      <SearchInput
+        setSearchResults={setSearchResultsMock}
+        setSearchState={setSearchStateMock}
+      />
+    );
+
+    expect(container.querySelector('.search-input')).toBeTruthy();
+  });
+
+  it('input value should be empty by default if no search query param in the URL exists', () => {
+    const { container } = render(
+      <SearchInput
+        setSearchResults={setSearchResultsMock}
+        setSearchState={setSearchStateMock}
+      />
+    );
+
+    expect(
+      (container.querySelector('.search-input') as HTMLInputElement).value
+    ).toEqual('');
+  });
+});
