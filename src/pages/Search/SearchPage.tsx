@@ -5,27 +5,27 @@ import { IAnimeItem, ISearchState } from '../../types/interfaces';
 
 export const SearchPage = () => {
   const [searchResults, setSearchResults] = useState<IAnimeItem[]>([]);
-  const [searchState, setSearchState] = useState<ISearchState>({ loading: false, error: null });
-
-  console.log(searchResults);
-  console.log(searchState);
+  const [searchState, setSearchState] = useState<ISearchState>({
+    loading: false,
+    error: null,
+  });
 
   return (
     <>
-      <SearchInput setSearchResults={setSearchResults} setSearchState={setSearchState} />
-      {
-        searchState.loading && <span>Loading results...</span>
-      }
-      {
-        searchState.error &&
+      <SearchInput
+        setSearchResults={setSearchResults}
+        setSearchState={setSearchState}
+      />
+      {searchState.loading && <span>Loading results...</span>}
+      {searchState.error && (
         <div>
-          <span>Oops! Something went wrong. Please, try to run search again...</span>
+          <span>
+            Oops! Something went wrong. Please, try to run search again...
+          </span>
           <p>Error: {searchState.error.message}</p>
         </div>
-      }
-      {
-        !!searchResults.length && <SearchResults animeItems={searchResults} />
-      }
+      )}
+      {!!searchResults.length && <SearchResults animeItems={searchResults} />}
     </>
   );
 };

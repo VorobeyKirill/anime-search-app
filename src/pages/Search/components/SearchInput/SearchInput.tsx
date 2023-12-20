@@ -6,18 +6,21 @@ import { IAnimeItem, ISearchState } from '../../../../types/interfaces';
 const ANIME_API = 'https://api.jikan.moe/v4/anime';
 
 interface ISearchInputProps {
-    setSearchResults: React.Dispatch<React.SetStateAction<IAnimeItem[]>>;
-    setSearchState: React.Dispatch<React.SetStateAction<ISearchState>>;
+  setSearchResults: React.Dispatch<React.SetStateAction<IAnimeItem[]>>;
+  setSearchState: React.Dispatch<React.SetStateAction<ISearchState>>;
 }
 
 async function fetchAnimes(searchValue: string): Promise<IAnimeItem[]> {
-    const response = await fetch(`${ANIME_API}?q=${searchValue}&sfw`);
-    const data = await response.json();
+  const response = await fetch(`${ANIME_API}?q=${searchValue}&sfw`);
+  const data = await response.json();
 
-    return data.data;
+  return data.data;
 }
 
-export const SearchInput = ({ setSearchResults, setSearchState }: ISearchInputProps) => {
+export const SearchInput = ({
+  setSearchResults,
+  setSearchState,
+}: ISearchInputProps) => {
   const [searchValue, setSearchValue] = useState('');
   const debouncedSearchValue = useDebounce(searchValue, 500);
   const { data, isLoading, error } = useQuery(
@@ -29,11 +32,10 @@ export const SearchInput = ({ setSearchResults, setSearchState }: ISearchInputPr
   useEffect(() => {
     setSearchResults(data || []);
     setSearchState({
-        loading: isLoading,
-        error: (error as null | { message: string })
+      loading: isLoading,
+      error: error as null | { message: string },
     });
-  }, [data, error, isLoading])
-
+  }, [data, error, isLoading]);
 
   return (
     <input
