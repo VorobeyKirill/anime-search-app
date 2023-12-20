@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useDebounce } from '../../../../hooks/useDebounce';
-import { ISearchState } from '../../SearchPage';
+import { IAnimeItem, ISearchState } from '../../../../types/interfaces';
 
 const ANIME_API = 'https://api.jikan.moe/v4/anime';
 
 interface ISearchInputProps {
-    setSearchResults: React.Dispatch<React.SetStateAction<never[]>>;
+    setSearchResults: React.Dispatch<React.SetStateAction<IAnimeItem[]>>;
     setSearchState: React.Dispatch<React.SetStateAction<ISearchState>>;
 }
 
-async function fetchAnimes(searchValue: string) {
-    const response = await fetch(`${ANIME_API}?q=${searchValue}`);
+async function fetchAnimes(searchValue: string): Promise<IAnimeItem[]> {
+    const response = await fetch(`${ANIME_API}?q=${searchValue}&sfw`);
     const data = await response.json();
 
     return data.data;
@@ -27,8 +27,11 @@ export const SearchInput = ({ setSearchResults, setSearchState }: ISearchInputPr
   );
 
   useEffect(() => {
-    setSearchResults(data);
-    setSearchState({loading: isLoading, error: error});
+    setSearchResults(data || []);
+    setSearchState({
+        loading: isLoading,
+        error: (error as null | { message: string })
+    });
   }, [data, error, isLoading])
 
 
