@@ -4,6 +4,8 @@ import { useDebounce } from '../../../../hooks/useDebounce';
 import { IAnimeItem, ISearchState } from '../../../../types/interfaces';
 import { useSearchParams } from 'react-router-dom';
 
+import './SearchInput.scss';
+
 const ANIME_API = 'https://api.jikan.moe/v4/anime';
 
 interface ISearchInputProps {
@@ -44,7 +46,7 @@ export const SearchInput = ({
 
   // useEffect to check queryParams for existing searchValue on component first render
   useEffect(() => {
-    if (!!queryParams.get('search')) {
+    if (queryParams.get('search')) {
       setSearchValue(queryParams.get('search') || '');
     }
   }, []);

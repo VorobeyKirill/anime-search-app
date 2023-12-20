@@ -3,6 +3,8 @@ import { SearchInput } from './components/SearchInput/SearchInput';
 import { SearchResults } from './components/SearchResults/SearchResults';
 import { IAnimeItem, ISearchState } from '../../types/interfaces';
 
+import './SearchPage.scss';
+
 export const SearchPage = () => {
   const [searchResults, setSearchResults] = useState<IAnimeItem[]>([]);
   const [searchState, setSearchState] = useState<ISearchState>({
@@ -16,9 +18,9 @@ export const SearchPage = () => {
         setSearchResults={setSearchResults}
         setSearchState={setSearchState}
       />
-      {searchState.loading && <span>Loading results...</span>}
+      {searchState.loading && <span className="search-page__loading-indicator">Loading results...</span>}
       {searchState.error && (
-        <div>
+        <div className="search-page__error">
           <span>
             Oops! Something went wrong. Please, try to run search again...
           </span>

@@ -1,6 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { IAnimeItem } from '../../../../types/interfaces';
 
+import './SearchResults.scss';
+
 interface ISearchResultsProps {
   animeItems: IAnimeItem[];
 }
