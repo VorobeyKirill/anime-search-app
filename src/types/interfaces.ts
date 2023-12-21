@@ -1,3 +1,4 @@
+// hungarian notation tends ot be problematic, it doesn't really add much
 export interface ISearchState {
   loading: boolean;
   error: null | { message: string };

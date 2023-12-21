@@ -104,5 +104,6 @@ Object {
   "queryByTitle": [Function],
   "rerender": [Function],
   "unmount": [Function],
+  // there's really no point in storing all these values in snapshots, it just makes them harder to reason about
 }
 `;

@@ -26,6 +26,7 @@ const mockedAnimeItems: IAnimeItem[] = [
 ];
 
 jest.mock('react-query', () => ({
+  // should be "react-query"
   ...jest.requireActual('react-router-dom'),
   useQuery: () => ({
     data: mockedAnimeItems,

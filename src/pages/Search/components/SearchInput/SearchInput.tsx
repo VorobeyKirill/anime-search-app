@@ -6,8 +6,10 @@ import { useSearchParams } from 'react-router-dom';
 
 import './SearchInput.scss';
 
+// probably should go to some global constants
 const ANIME_API = 'https://api.jikan.moe/v4/anime';
 
+// probably should be extracted to some API utilities, etc
 interface ISearchInputProps {
   setSearchResults: React.Dispatch<React.SetStateAction<IAnimeItem[]>>;
   setSearchState: React.Dispatch<React.SetStateAction<ISearchState>>;

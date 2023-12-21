@@ -36,6 +36,7 @@ describe('SearchResults', () => {
       <SearchResults animeItems={mockedAnimeItems} />
     );
 
+    // there are better ways to select items on page, querySelector is kinda last resort weapon
     expect(container.querySelector('.search-results-card')).toBeInTheDocument();
   });
 

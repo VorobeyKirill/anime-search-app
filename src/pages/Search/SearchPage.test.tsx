@@ -3,6 +3,7 @@ import { render } from '@testing-library/react';
 import { SearchPage } from './SearchPage';
 
 jest.mock('./components/SearchInput/SearchInput', () => ({
+  // by not mocking anything you might miss many important problem in your snapshots
   SearchInput: jest.fn(() => null),
 }));
 
