@@ -3,13 +3,7 @@ import { IAnimeItem } from '../../../../types/interfaces';
 import { SearchInput } from './SearchInput';
 import { act, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-
-const mockedQueryParams = new Map();
-
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useSearchParams: () => [mockedQueryParams, () => jest.fn()],
-}));
+import { MemoryRouter } from 'react-router-dom';
 
 const mockedAnimeItems: IAnimeItem[] = [
   {
@@ -44,8 +38,8 @@ describe('SearchInput', () => {
         <SearchInput
           setSearchResults={setSearchResultsMock}
           setSearchState={setSearchStateMock}
-        />
-      )
+        />,
+      ),
     ).toMatchSnapshot();
   });
 
@@ -54,7 +48,7 @@ describe('SearchInput', () => {
       <SearchInput
         setSearchResults={setSearchResultsMock}
         setSearchState={setSearchStateMock}
-      />
+      />,
     );
 
     expect(container.querySelector('.search-input')).toBeInTheDocument();
@@ -65,24 +59,26 @@ describe('SearchInput', () => {
       <SearchInput
         setSearchResults={setSearchResultsMock}
         setSearchState={setSearchStateMock}
-      />
+      />,
     );
 
     expect(
-      (container.querySelector('.search-input') as HTMLInputElement).value
+      (container.querySelector('.search-input') as HTMLInputElement).value,
     ).toEqual('');
   });
 
   it('should update searchValue on input change', async () => {
     const { container } = render(
-      <SearchInput
-        setSearchResults={setSearchResultsMock}
-        setSearchState={setSearchStateMock}
-      />
+      <MemoryRouter>
+        <SearchInput
+          setSearchResults={setSearchResultsMock}
+          setSearchState={setSearchStateMock}
+        />
+      </MemoryRouter>,
     );
 
     const inputElement = container.querySelector(
-      '.search-input'
+      '.search-input',
     ) as HTMLInputElement;
 
     await act(async () => {

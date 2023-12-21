@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { useDebounce } from '../../../../hooks/useDebounce';
 import { IAnimeItem, ISearchState } from '../../../../types/interfaces';
@@ -24,9 +24,8 @@ export const SearchInput = ({
   setSearchResults,
   setSearchState,
 }: ISearchInputProps) => {
-  const [searchValue, setSearchValue] = useState('');
-
   const [queryParams, setQueryParams] = useSearchParams();
+  const searchValue = queryParams.get('search') || '';
 
   const debouncedSearchValue = useDebounce(searchValue, 500);
   const { data, isLoading, error } = useQuery(
@@ -44,23 +43,15 @@ export const SearchInput = ({
     });
   }, [data, error, isLoading]);
 
-  // useEffect to check queryParams for existing searchValue on component first render
-  useEffect(() => {
-    if (queryParams.get('search')) {
-      setSearchValue(queryParams.get('search') || '');
-    }
-  }, [queryParams]);
-
   return (
     <input
       className="search-input"
-      type="text"
-      placeholder="Search..."
-      value={searchValue}
       onChange={(event) => {
-        setSearchValue(event.target.value);
         setQueryParams({ search: event.target.value });
       }}
+      placeholder="Search..."
+      type="text"
+      value={searchValue}
     />
   );
 };
