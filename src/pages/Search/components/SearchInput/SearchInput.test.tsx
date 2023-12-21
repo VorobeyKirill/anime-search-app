@@ -28,27 +28,22 @@ jest.mock('react-query', () => ({
   }),
 }));
 
-const setSearchResultsMock = () => jest.fn();
-const setSearchStateMock = () => jest.fn();
-
 describe('SearchInput', () => {
   it('should match snapshot', () => {
     expect(
       render(
-        <SearchInput
-          setSearchResults={setSearchResultsMock}
-          setSearchState={setSearchStateMock}
-        />,
+        <MemoryRouter>
+          <SearchInput />
+        </MemoryRouter>,
       ),
     ).toMatchSnapshot();
   });
 
   it('should contain input element by default', () => {
     const { container } = render(
-      <SearchInput
-        setSearchResults={setSearchResultsMock}
-        setSearchState={setSearchStateMock}
-      />,
+      <MemoryRouter>
+        <SearchInput />
+      </MemoryRouter>,
     );
 
     expect(container.querySelector('.search-input')).toBeInTheDocument();
@@ -56,10 +51,9 @@ describe('SearchInput', () => {
 
   it('input value should be empty by default if no search query param in the URL exists', () => {
     const { container } = render(
-      <SearchInput
-        setSearchResults={setSearchResultsMock}
-        setSearchState={setSearchStateMock}
-      />,
+      <MemoryRouter>
+        <SearchInput />
+      </MemoryRouter>,
     );
 
     expect(
@@ -70,10 +64,7 @@ describe('SearchInput', () => {
   it('should update searchValue on input change', async () => {
     const { container } = render(
       <MemoryRouter>
-        <SearchInput
-          setSearchResults={setSearchResultsMock}
-          setSearchState={setSearchStateMock}
-        />
+        <SearchInput />
       </MemoryRouter>,
     );
 
