@@ -2,6 +2,8 @@ import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { IAnimeItem } from '../../types/interfaces';
 
+import './DetailsPage.scss';
+
 const ANIME_API = 'https://api.jikan.moe/v4/anime';
 
 async function fetchAnimeDataById(
@@ -39,15 +41,16 @@ export const DetailsPage = () => {
   return (
     <>
       {!!data && (
-        <>
+        <div className="details-container">
           <h2 className="details__title">{data.title}</h2>
           <img
-            src={data?.images.jpg.image_url}
+            src={data?.images.jpg.large_image_url}
             alt={data.title + ' cover image'}
             className="details__image"
           />
+          <div className="details__divider"></div>
           <p className="details__description">{data.synopsis}</p>
-        </>
+        </div>
       )}
     </>
   );

@@ -15,7 +15,12 @@ const animeItemsMock: IAnimeItem[] = [
     synopsis: 'synopsis',
     title: 'title',
     mal_id: 1,
-    images: { jpg: { image_url: 'url' } },
+    images: {
+      jpg: {
+        image_url: 'url',
+        large_image_url: 'large_url'
+      }
+    },
   },
 ];
 
