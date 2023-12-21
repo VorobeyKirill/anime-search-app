@@ -19,12 +19,10 @@ export const SearchPage = () => {
         setSearchState={setSearchState}
       />
       {searchState.loading && (
-        <span className="search-page__loading-indicator">
-          Loading results...
-        </span>
+        <span className="search__loading-indicator">Loading results...</span>
       )}
       {searchState.error && (
-        <div className="search-page__error">
+        <div className="search__error">
           <span>
             Oops! Something went wrong. Please, try to run search again...
           </span>

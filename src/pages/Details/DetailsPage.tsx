@@ -24,16 +24,16 @@ export const DetailsPage = () => {
   );
 
   if (isLoading) {
-    return <span>Loading...</span>;
+    return <span className="details__loading-indicator">Loading...</span>;
   }
 
   if (error) {
     return (
-      <div>
+      <div className="details__error">
         <span>
           Oops! Something went wrong. Please, try to run search again...
         </span>
-        <p>Error: {(error as { message: string }).message}</p>
+        <p>Error: {(error as { message: string })?.message}</p>
       </div>
     );
   }

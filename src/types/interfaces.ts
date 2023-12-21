@@ -11,6 +11,6 @@ export interface IAnimeItem {
     jpg: {
       image_url: string;
       large_image_url: string;
-    }
+    };
   };
 }
